@@ -24,7 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({
 					contactToEdit: {
 						id: id,
-						agenda_slug: "agenda_intiluna",
+						agenda_slug: "agenda_rochelle",
 						full_name: name,
 						email: email,
 						phone: phone,
