@@ -25,7 +25,7 @@ export const EditContact = () => {
 		/*console.log({
 			full_name: inputName,
 			email: inputEmail,
-			agenda_slug: "agenda_intiluna",
+			agenda_slug: "agenda_rochelle",
 			address: inputAddress,
 			phone: inputPhone
 		})
@@ -35,7 +35,7 @@ export const EditContact = () => {
 		actions.editOneContact(store.contactToEdit.id, {
 			full_name: inputName,
 			email: inputEmail,
-			agenda_slug: "agenda_intiluna",
+			agenda_slug: "agenda_rochelle",
 			address: inputAddress,
 			phone: inputPhone
 		});

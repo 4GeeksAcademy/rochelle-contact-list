@@ -17,7 +17,7 @@ export const AddContact = () => {
 		/*console.log({
 			full_name: inputName,
 			email: inputEmail,
-			agenda_slug: "agenda_intiluna",
+			agenda_slug: "agenda_rochelle",
 			address: inputAddress,
 			phone: inputPhone
 		})
@@ -26,7 +26,7 @@ export const AddContact = () => {
 		actions.createContacts({
 			full_name: inputName,
 			email: inputEmail,
-			agenda_slug: "agenda_intiluna",
+			agenda_slug: "agenda_rochelle",
 			address: inputAddress,
 			phone: inputPhone
 		});

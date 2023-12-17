@@ -13,7 +13,7 @@ export const Contacts = () => {
 
 	const { store, actions } = useContext(Context);
 
-	//llamamos a los contactos al iniciar pagina
+	//call contact to initialize page
 	useEffect(() => {
 		actions.getContacts();
 	}, []);
