@@ -1,96 +1,71 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
-		store: {
-			//Your data structures, A.K.A Entities
-			contacts: [],
-			newContact: {},
-			contactToEdit: {}
+	  store: {
+		contacts: [],
+	  },
+	  actions: {
+		getContacts: async () => {
+		  const response = await fetch(
+			"https://playground.4geeks.com/apis/fake/contact/agenda/agenda_rochelle"
+		  );
+		  const data = await response.json();
+		  setStore({ contacts: data });
 		},
-		actions: {
-			//(Arrow) Functions that update the Store
-			// Remember to use the scope: scope.state.store & scope.setState()
-			getContacts: () => {
-				fetch("https://playground.4geeks.com/apis/fake/contact/", {
-					method: "GET"
-				})
-					.then(response => response.json())
-					//.then(data => console.log(data))
-					.then(data => setStore({ contacts: data }))
-					.catch(error => console.log(error));
-			},
-			// get one contact
-			getOneContact: (id, name, address, phone, email) => {
-				console.log(`passing specific contact information for ${id}`);
-				setStore({
-					contactToEdit: {
-						id: id,
-						agenda_slug: "agenda_rochelle",
-						full_name: name,
-						email: email,
-						phone: phone,
-						address: address
-					}
-				});
-			},
-
-			// getOneContact: id => {
-			// 	console.log(`getting specific contact information for ${id}`);
-			// 	fetch(`https://playground.4geeks.com/apis/fake/contact/${id}`, {
-			// 		method: "GET"
-			// 	})
-			// 		.then(response => response.json())
-			// 		//.then(data => console.log(data))
-			// 		.then(data => setStore({ contactToEdit: data }))
-			// 		.catch(error => console.log(error));
-			// 	console.log(getStore().contactToEdit);
-			// },
-			// edit one contact
-
-			editOneContact: (id, valores) => {
-				fetch(`https://playground.4geeks.com/apis/fake/contact/${id}`, {
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify(valores)
-				})
-					.then(response => response.json())
-					//.then(data => console.log(data))
-					.then(data => setStore({ contacts: data }))
-					.catch(error => console.log(error));
-			},
-
-			createContacts: valores => {
-				fetch("https://playground.4geeks.com/apis/fake/contact/", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify(valores)
-				})
-					.then(response => response.json())
-					//.then(data => console.log(data))
-					.then(data => setStore({ contacts: data }))
-					.catch(error => console.log(error));
-			},
-			//Delete
-			deleteContacts: id => {
-				fetch(`https://playground.4geeks.com/apis/fake/contact/${id}`, {
-					method: "DELETE"
-				})
-					.then(response => {
-						console.log(response);
-						if (response.ok === true) {
-							getActions().getContacts();
-						}
-						return response.json();
-					})
-					//.then(data => console.log(data))
-					//.then(data => setStore({ contacts: data }))
-					.catch(error => console.log(error));
+		addContact: async (name, phone, email, address) => {
+		  const store = getStore();
+		  const response = await fetch(
+			"https://playground.4geeks.com/apis/fake/contact/",
+			{
+			  method: "POST",
+			  headers: { "Content-Type": "application/json" },
+			  body: JSON.stringify({
+				full_name: name,
+				phone: phone,
+				email: email,
+				address: address,
+				agenda_slug: "agenda_rochelle",
+			  }),
 			}
-		}
+		  );
+		  const data = await response.json();
+		  setStore({ contacts: [...store.contacts, data] });
+		},
+		deleteContact: async (id) => {
+		  const store = getStore();
+		  const response = await fetch(
+			"https://playground.4geeks.com/apis/fake/contact/" + id,
+			{
+			  method: "DELETE",
+			  headers: { "Content-Type": "application/json" },
+			}
+		  );
+		  const data = await response.json();
+		  setStore({
+			contacts: store.contacts.filter((contact) => contact.id !== id),
+		  });
+		},
+		editContact: async (id, name, phone, email, address) => {
+		  const store = getStore();
+		  const response = await fetch(
+			"https://playground.4geeks.com/apis/fake/contact/" + id,
+			{
+			  method: "PUT",
+			  headers: { "Content-Type": "application/json" },
+			  body: JSON.stringify({
+				full_name: name,
+				phone: phone,
+				email: email,
+				address: address,
+				agenda_slug: "agenda_rochelle",
+			  }),
+			}
+		  );
+		  const data = await response.json();
+		  setStore({ contacts: [...store.contacts, data] });
+		},
+	  },
 	};
-};
-
-export default getState;
+  };
+  
+  export default getState;
+  
